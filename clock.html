@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>Hexadecimal Clock</title>
+<!-- made on 2011-05-01 -->
+<style>
+body {
+    text-align: center;
+}
+
+#big_clock {
+    color: #FFFFFF;
+    font-family: sans-serif;
+    font-size: 100px;
+    margin-top: 15%;
+    text-align: center;
+}
+
+input {
+    border: 2px solid #AAAAAA;
+    background-color: #FFFFFF;
+    padding: 5px;
+}
+
+input:hover {
+    background-color: #EEEEEE;
+}
+</style>
+
+<script type="text/javascript">
+var showAsHex = true;
+
+function makePrettyColors()
+{
+    var d = new Date();
+    var h = d.getHours();
+    var m = d.getMinutes();
+    var s = d.getSeconds();
+    var ms = d.getMilliseconds();
+    
+    var r = Math.floor( h/23*255 );
+    var g = Math.floor( m/59*255 );
+    var b = Math.floor( s/59*255 );
+
+    var c = "#" + decToHex(r) + decToHex(g) + decToHex(b);
+    document.body.style.backgroundColor = c;
+
+    if (showAsHex==true)
+    {
+        document.getElementById('big_clock').innerHTML = c;
+    }
+    else
+    {
+        if (m<10) m = "0" + m;
+        if (s<10) s = "0" + s;
+
+        document.getElementById('big_clock').innerHTML = h + ":" + m + ":" + s;
+    }
+}
+
+function decToHex(dec)
+{
+    var hexDigits = new Array('0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F');
+
+    var d1 = Math.floor(dec/16);
+    var d0 = dec - 16*d1;
+
+    return hexDigits[d1] + hexDigits[d0];
+}
+
+function toggle()
+{
+    showAsHex = !showAsHex;
+}
+</script>
+</head>
+
+<body onload="javascript:setInterval('makePrettyColors()',1000)">
+    <div id="big_clock"></div>
+
+    <form>
+        <input type="button" onclick="javascript:toggle()" value="I like it the other way" />
+    </form>
+</body>
+</html>
