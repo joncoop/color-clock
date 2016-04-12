@@ -36,10 +36,10 @@ function makePrettyColors()
     var m = d.getMinutes();
     var s = d.getSeconds();
     var ms = d.getMilliseconds();
-    
+
     var r = Math.floor( h/23*255 );
     var g = Math.floor( m/59*255 );
-    var b = Math.floor( s/59*255 );
+    var b = Math.floor( (s + ms/1000)/59*255 );
 
     var c = "#" + decToHex(r) + decToHex(g) + decToHex(b);
     document.body.style.backgroundColor = c;
@@ -74,11 +74,12 @@ function toggle()
 </script>
 </head>
 
-<body onload="javascript:setInterval('makePrettyColors()',1000)">
+<body onload="javascript:setInterval('makePrettyColors()', 1000/30)">
     <div id="big_clock"></div>
 
     <form>
         <input type="button" onclick="javascript:toggle()" value="I like it the other way" />
     </form>
+
 </body>
 </html>
